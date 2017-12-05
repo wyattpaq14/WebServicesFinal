@@ -16,7 +16,6 @@ namespace WebServicesFinal
     public partial class Form1 : Form
     {
         private string city;
-        private string state;
 
         public Form1()
         {
@@ -28,129 +27,71 @@ namespace WebServicesFinal
 
             //clear fields
             emptyFields();
-            string locationAPIURL = "http://api.geonames.org/findNearbyPostalCodes?postalcode=" + txtZipCode.Text + "&country=US&radius=10&username=wyattpaq14&style=full";
-            parseLocationAPI(locationAPIURL);
+            string gApiKey = "AIzaSyDE9AfikwP8gXADdMP6xx5-ymF5YyheqWg";
+            string locationAPIURL = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + txtZipCode.Text + "&key=" + gApiKey;
+            googleApiRequest(locationAPIURL);
 
             //retreive zipcode from web service
 
 
-            //retreive information from weather underground api
-            string api_key = "80a756655790476a";
-            string api_url = "http://api.wunderground.com/api/" + api_key + "/conditions/q/" + state + "/" + city + ".xml";
+            //retreive information from weather openweathermap api
+            string api_key = "34f231179584a91c051c06c2aa6698df";
+
+            string openWeatherMapAPIURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + api_key + "&mode=xml&units=imperial";
 
 
             //parse the weather xml into the fields
-            parseWeatherAPI(api_url);
+            //parseWeatherAPI(openWeatherMapAPIURL);
+            owmApiRequest(openWeatherMapAPIURL);
         }
 
-
-        private void parseWeatherAPI(string input_xml)
+        private void googleApiRequest(string input_url)
         {
+            WebClient client = new WebClient();
+            string xml = client.DownloadString(input_url);
 
-            var cli = new WebClient();
-            string weather = cli.DownloadString(input_xml);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            lblLocation.Text += doc.DocumentElement.SelectSingleNode("result/formatted_address").InnerXml;
+            city = doc.DocumentElement.SelectSingleNode("result/address_component[2]/long_name").InnerXml;
 
-            using (XmlReader reader = XmlReader.Create(new StringReader(weather)))
-            {
-                // Parse the file and display each of the nodes.
-                while (reader.Read())
-                {
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-
-                            if (reader.Name.Equals("weather"))
-                            {
-                                reader.Read();
-                                lblConditions.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("observation_time"))
-                            {
-                                reader.Read();
-                                lblObsTime.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("temperature_string"))
-                            {
-                                reader.Read();
-                                lblTempature.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("relative_humidity"))
-                            {
-                                reader.Read();
-                                lblHumidity.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("pressure_mb"))
-                            {
-                                reader.Read();
-                                lblPressure.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("visibility_km"))
-                            {
-                                reader.Read();
-                                lblVisiability.Text += reader.Value + " KM";
-                            }
-                            else if (reader.Name.Equals("latitude"))
-                            {
-                                reader.Read();
-                                lblLatitude.Text += reader.Value;
-                            }
-                            else if (reader.Name.Equals("longitude"))
-                            {
-                                reader.Read();
-                                lblLongitude.Text += reader.Value;
-                            }
-
-                            break;
-
-                            
-                    }
-                }
-            }
         }
 
-        private void parseLocationAPI(string input_xml)
+
+        private void owmApiRequest(string input_url)
         {
+            WebClient client = new WebClient();
+            string xml = client.DownloadString(input_url);
 
-            var cli = new WebClient();
-            string weather = cli.DownloadString(input_xml);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            lblTempature.Text += doc.DocumentElement.SelectSingleNode("temperature").Attributes["value"].Value + " Fahrenheit";
+            lblPressure.Text += doc.DocumentElement.SelectSingleNode("pressure").Attributes["value"].Value + " hPa";
+            lblHumidity.Text += doc.DocumentElement.SelectSingleNode("humidity").Attributes["value"].Value + "%";
+            lblWind.Text += doc.DocumentElement.SelectSingleNode("wind/speed").Attributes["name"].Value;
+            lblConditions.Text += doc.DocumentElement.SelectSingleNode("weather").Attributes["value"].Value;
+            lblSunRise.Text += doc.DocumentElement.SelectSingleNode("city/sun").Attributes["rise"].Value;
+            lblSunSet.Text += doc.DocumentElement.SelectSingleNode("city/sun").Attributes["set"].Value;
+            lblLongitude.Text += doc.DocumentElement.SelectSingleNode("city/coord").Attributes["lon"].Value;
+            lblLatitude.Text += doc.DocumentElement.SelectSingleNode("city/coord").Attributes["lat"].Value;
 
-            using (XmlReader reader = XmlReader.Create(new StringReader(weather)))
-            {
-                // Parse the file and display each of the nodes.
-                while (reader.Read())
-                {
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-
-                            if (reader.Name.Equals("name"))
-                            {
-                                reader.Read();
-                                city= reader.Value;
-                            }
-                            else if (reader.Name.Equals("adminName1"))
-                            {
-                                reader.Read();
-                                state= reader.Value;
-                            }
-
-                            break;
-                    }
-                }
-            }
         }
+
+
+
 
         private void emptyFields()
         {
-            lblConditions.Text = "Conditions: ";
+            lblWind.Text = "Wind Speed: ";
             lblHumidity.Text = "Humidity: ";
             lblLatitude.Text = "Latitude: ";
             lblLocation.Text = "Location: ";
             lblLongitude.Text = "Longitude: ";
-            lblObsTime.Text = "Observation Time: ";
+            lblSunSet.Text = "Sun Set: ";
             lblPressure.Text = "Pressure: ";
             lblTempature.Text = "Tempature: ";
-            lblVisiability.Text = "Visiability: ";
+            lblConditions.Text = "Conditions: ";
+            lblSunRise.Text = "Sun Rise: ";
         }
     }
 }

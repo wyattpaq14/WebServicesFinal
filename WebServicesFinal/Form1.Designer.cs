@@ -33,19 +33,20 @@
             this.lblTempature = new System.Windows.Forms.Label();
             this.lblPressure = new System.Windows.Forms.Label();
             this.lblLocation = new System.Windows.Forms.Label();
-            this.lblObsTime = new System.Windows.Forms.Label();
+            this.lblSunSet = new System.Windows.Forms.Label();
             this.lblHumidity = new System.Windows.Forms.Label();
-            this.lblVisiability = new System.Windows.Forms.Label();
-            this.lblLatitude = new System.Windows.Forms.Label();
             this.lblConditions = new System.Windows.Forms.Label();
+            this.lblLatitude = new System.Windows.Forms.Label();
+            this.lblWind = new System.Windows.Forms.Label();
             this.btnGetInformation = new System.Windows.Forms.Button();
             this.lblLongitude = new System.Windows.Forms.Label();
+            this.lblSunRise = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(12, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 13);
             this.label1.TabIndex = 0;
@@ -53,9 +54,9 @@
             // 
             // txtZipCode
             // 
-            this.txtZipCode.Location = new System.Drawing.Point(191, 41);
+            this.txtZipCode.Location = new System.Drawing.Point(365, 24);
             this.txtZipCode.Name = "txtZipCode";
-            this.txtZipCode.Size = new System.Drawing.Size(360, 20);
+            this.txtZipCode.Size = new System.Drawing.Size(186, 20);
             this.txtZipCode.TabIndex = 1;
             // 
             // lblTempature
@@ -79,20 +80,20 @@
             // lblLocation
             // 
             this.lblLocation.AutoSize = true;
-            this.lblLocation.Location = new System.Drawing.Point(12, 117);
+            this.lblLocation.Location = new System.Drawing.Point(12, 88);
             this.lblLocation.Name = "lblLocation";
             this.lblLocation.Size = new System.Drawing.Size(54, 13);
             this.lblLocation.TabIndex = 7;
             this.lblLocation.Text = "Location: ";
             // 
-            // lblObsTime
+            // lblSunSet
             // 
-            this.lblObsTime.AutoSize = true;
-            this.lblObsTime.Location = new System.Drawing.Point(12, 143);
-            this.lblObsTime.Name = "lblObsTime";
-            this.lblObsTime.Size = new System.Drawing.Size(96, 13);
-            this.lblObsTime.TabIndex = 8;
-            this.lblObsTime.Text = "Observation Time: ";
+            this.lblSunSet.AutoSize = true;
+            this.lblSunSet.Location = new System.Drawing.Point(12, 143);
+            this.lblSunSet.Name = "lblSunSet";
+            this.lblSunSet.Size = new System.Drawing.Size(51, 13);
+            this.lblSunSet.TabIndex = 8;
+            this.lblSunSet.Text = "Sun Set: ";
             // 
             // lblHumidity
             // 
@@ -103,14 +104,14 @@
             this.lblHumidity.TabIndex = 9;
             this.lblHumidity.Text = "Humidity: ";
             // 
-            // lblVisiability
+            // lblConditions
             // 
-            this.lblVisiability.AutoSize = true;
-            this.lblVisiability.Location = new System.Drawing.Point(12, 248);
-            this.lblVisiability.Name = "lblVisiability";
-            this.lblVisiability.Size = new System.Drawing.Size(49, 13);
-            this.lblVisiability.TabIndex = 10;
-            this.lblVisiability.Text = "Visibility: ";
+            this.lblConditions.AutoSize = true;
+            this.lblConditions.Location = new System.Drawing.Point(12, 248);
+            this.lblConditions.Name = "lblConditions";
+            this.lblConditions.Size = new System.Drawing.Size(62, 13);
+            this.lblConditions.TabIndex = 10;
+            this.lblConditions.Text = "Conditions: ";
             // 
             // lblLatitude
             // 
@@ -121,20 +122,20 @@
             this.lblLatitude.TabIndex = 11;
             this.lblLatitude.Text = "Latitude: ";
             // 
-            // lblConditions
+            // lblWind
             // 
-            this.lblConditions.AutoSize = true;
-            this.lblConditions.Location = new System.Drawing.Point(12, 334);
-            this.lblConditions.Name = "lblConditions";
-            this.lblConditions.Size = new System.Drawing.Size(62, 13);
-            this.lblConditions.TabIndex = 12;
-            this.lblConditions.Text = "Conditions: ";
+            this.lblWind.AutoSize = true;
+            this.lblWind.Location = new System.Drawing.Point(12, 334);
+            this.lblWind.Name = "lblWind";
+            this.lblWind.Size = new System.Drawing.Size(72, 13);
+            this.lblWind.TabIndex = 12;
+            this.lblWind.Text = "Wind Speed: ";
             // 
             // btnGetInformation
             // 
-            this.btnGetInformation.Location = new System.Drawing.Point(191, 80);
+            this.btnGetInformation.Location = new System.Drawing.Point(365, 59);
             this.btnGetInformation.Name = "btnGetInformation";
-            this.btnGetInformation.Size = new System.Drawing.Size(360, 23);
+            this.btnGetInformation.Size = new System.Drawing.Size(186, 23);
             this.btnGetInformation.TabIndex = 13;
             this.btnGetInformation.Text = "Get Information";
             this.btnGetInformation.UseVisualStyleBackColor = true;
@@ -149,18 +150,28 @@
             this.lblLongitude.TabIndex = 14;
             this.lblLongitude.Text = "Longitude: ";
             // 
+            // lblSunRise
+            // 
+            this.lblSunRise.AutoSize = true;
+            this.lblSunRise.Location = new System.Drawing.Point(12, 113);
+            this.lblSunRise.Name = "lblSunRise";
+            this.lblSunRise.Size = new System.Drawing.Size(56, 13);
+            this.lblSunRise.TabIndex = 15;
+            this.lblSunRise.Text = "Sun Rise: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 356);
+            this.Controls.Add(this.lblSunRise);
             this.Controls.Add(this.lblLongitude);
             this.Controls.Add(this.btnGetInformation);
-            this.Controls.Add(this.lblConditions);
+            this.Controls.Add(this.lblWind);
             this.Controls.Add(this.lblLatitude);
-            this.Controls.Add(this.lblVisiability);
+            this.Controls.Add(this.lblConditions);
             this.Controls.Add(this.lblHumidity);
-            this.Controls.Add(this.lblObsTime);
+            this.Controls.Add(this.lblSunSet);
             this.Controls.Add(this.lblLocation);
             this.Controls.Add(this.lblPressure);
             this.Controls.Add(this.lblTempature);
@@ -180,13 +191,14 @@
         private System.Windows.Forms.Label lblTempature;
         private System.Windows.Forms.Label lblPressure;
         private System.Windows.Forms.Label lblLocation;
-        private System.Windows.Forms.Label lblObsTime;
+        private System.Windows.Forms.Label lblSunSet;
         private System.Windows.Forms.Label lblHumidity;
-        private System.Windows.Forms.Label lblVisiability;
-        private System.Windows.Forms.Label lblLatitude;
         private System.Windows.Forms.Label lblConditions;
+        private System.Windows.Forms.Label lblLatitude;
+        private System.Windows.Forms.Label lblWind;
         private System.Windows.Forms.Button btnGetInformation;
         private System.Windows.Forms.Label lblLongitude;
+        private System.Windows.Forms.Label lblSunRise;
     }
 }
 
