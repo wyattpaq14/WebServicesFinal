@@ -27,9 +27,19 @@ namespace WebServicesFinal
 
             //clear fields
             emptyFields();
-            string gApiKey = "AIzaSyDE9AfikwP8gXADdMP6xx5-ymF5YyheqWg";
-            string locationAPIURL = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + txtZipCode.Text + "&key=" + gApiKey;
-            googleApiRequest(locationAPIURL);
+
+            try
+            {
+                string gApiKey = "AIzaSyDE9AfikwP8gXADdMP6xx5-ymF5YyheqWg";
+                string locationAPIURL = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + txtZipCode.Text + "&key=" + gApiKey;
+                googleApiRequest(locationAPIURL);
+            }
+            catch
+            {
+                MessageBox.Show("Did you enter a valid zip code?", "You fool", MessageBoxButtons.OK);
+
+
+            }
 
             //retreive zipcode from web service
 
@@ -48,7 +58,15 @@ namespace WebServicesFinal
         private void googleApiRequest(string input_url)
         {
             WebClient client = new WebClient();
-            string xml = client.DownloadString(input_url);
+            string xml = "";
+            try
+            {
+                xml = client.DownloadString(input_url);
+            }
+            catch (WebException)
+            {
+                //returned 400 error
+            }
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -61,7 +79,12 @@ namespace WebServicesFinal
         private void owmApiRequest(string input_url)
         {
             WebClient client = new WebClient();
-            string xml = client.DownloadString(input_url);
+            string xml = "";
+            try
+            {
+                xml = client.DownloadString(input_url);
+            
+
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -74,6 +97,15 @@ namespace WebServicesFinal
             lblSunSet.Text += doc.DocumentElement.SelectSingleNode("city/sun").Attributes["set"].Value;
             lblLongitude.Text += doc.DocumentElement.SelectSingleNode("city/coord").Attributes["lon"].Value;
             lblLatitude.Text += doc.DocumentElement.SelectSingleNode("city/coord").Attributes["lat"].Value;
+            }
+            catch (WebException)
+            {
+                //returned 400 error
+            }
+            catch (XmlException)
+            {
+                //xml exception -- didnt receive any data
+            }
 
         }
 
